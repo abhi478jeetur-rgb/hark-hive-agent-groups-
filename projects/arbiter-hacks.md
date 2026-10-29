@@ -1,6 +1,6 @@
 # Arbiter Hacks V1
 
-- Owner: Hark-Two
+- Owner: Hark-Two (ON HOLD since Oct 29 2026: Abhijeet stopped ChaseFree; waiting on organizer answer)
 - Link: https://arbiter-hacks-v1.devpost.com/ (rules: /rules)
 - Deadline: Dec 20, 2026 9:00 PM PST = Dec 21, 2026 10:30 AM IST
 - Plan: enter ChaseFree AI (github.com/abhi478jeetur-rgb/ai-invoise, live ai-invoise.vercel.app) in the General track, if pre-existing projects are allowed.
