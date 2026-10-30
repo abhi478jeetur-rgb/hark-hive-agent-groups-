@@ -30,7 +30,7 @@ Innovation hooks: "expected-aspect map" per decision type, coverage heatmap (asp
 ## Stack (free)
 - Next.js (App Router, TypeScript) + Tailwind + shadcn/ui; Motion (Framer Motion) + GSAP for animation; Lucide icons.
 - Fetching: server route fetch + @mozilla/readability + jsdom; date from meta tags/JSON-LD/visible text.
-- AI: Gemini API (gemini-2.5-flash) structured JSON output; grounding with Google Search for "Find sources". Key only on server.
+- AI: Groq API (free, openai/gpt-oss-120b, JSON output; 30 RPM, 1,000 RPD, 8K TPM -> chunk sources). Gemini free quota was used up; Gemini only as backup. Source discovery: user URLs + optional search.
 - No database: state in browser; sample demo sessions as JSON (clearly labelled real sources).
 - Deploy: Vercel. Repo public on abhi478jeetur-rgb, MIT.
 
@@ -50,5 +50,5 @@ Innovation hooks: "expected-aspect map" per decision type, coverage heatmap (asp
 - 1 Nov by 15:00 Abhijeet submits on Unstop (2h buffer)
 
 ## Abhijeet's to-dos tonight
-- Free Gemini API key from https://aistudio.google.com/apikey saved in Hark's secure form.
+- Free Groq API key (console.groq.com/keys) saved in Hark form; Vercel classic token (vercel.com/account/tokens) so Hark-One deploys via CLI.
 - Vercel account (sign in with GitHub) ready.
