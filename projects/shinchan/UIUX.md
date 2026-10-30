@@ -1,4 +1,5 @@
 # GapLens — UI/UX & Motion Spec
+Final theme: Torchlight Archive — see THEME.md (overrides any colour/font below).
 Design guidance source: frontend-design skill (installed 30 Oct). Moodboard: inspiration/ (16 refs) + moodboard.jpg.
 
 ## 1. Design plan (pass 1 → reviewed → revised)
@@ -7,16 +8,16 @@ Subject: a torch in a dark archive. Audience: students and researchers. Primary 
 Colour (revised): not pure near-black + one neon (generic tell #2) — a deep **ink-navy night** with warm torchlight.
 | Token | Hex | Use |
 |---|---|---|
-| night | #0B1020 | page background |
-| dusk | #141B2E | panels, drawer |
+| night | #0E1524 | page background |
+| dusk | #1A2332 | panels, drawer |
 | torch | #FBBF24 | light beam, dark-spot highlights, primary CTA |
-| leaf | #22C55E | confirmed source facts |
-| ember | #F87171 | conflicts |
+| seafoam | #5EC4B6 | confirmed source facts |
+| coral | #F27F6B | conflicts |
 | dream | #A78BFA | AI suggestions / inferred items |
-| paper | #E5E7EB | text |
+| cream | #F1FAEE | text |
 | fog | #94A3B8 | secondary text |
 
-Type (revised from Space Grotesk + Inter, which is the default pairing): **Bricolage Grotesque** (display, variable width — headline widths can "stretch" as the beam passes) + **IBM Plex Sans** (body/UI) + **Mukta** (Devanagari, matches Plex x-height). Scale 1.25: 13 / 16 / 20 / 25 / 31 / 39 / 61. Body 16/1.55, max 72ch. Sentence case everywhere; no all-caps labels, no mono labels, no "→" on buttons.
+Type (revised from Space Grotesk + Inter, which is the default pairing): **Bricolage Grotesque** (display, variable width — headline widths can "stretch" as the beam passes) + **Instrument Sans** (body/UI) + **Mukta** (Devanagari). Scale 1.25: 13 / 16 / 20 / 25 / 31 / 39 / 61. Body 16/1.55, max 72ch. Sentence case everywhere; no all-caps labels, no mono labels, no "→" on buttons.
 
 Layout: left-aligned, asymmetric. Not a grid of identical cards — results use one big **map** (heatmap) + a **reading column**, with hierarchy shown by size, not boxes. Radii by role: 14px panels, 8px chips, 999px status pills.
 
