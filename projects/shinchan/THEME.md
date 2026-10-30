@@ -32,3 +32,12 @@ All OFL, Google Fonts via next/font.
 Radii: 14 panels, 8 cells/chips, 12 buttons. No drop shadows; depth from torch glow only. One hero motion: beam reveal on the coverage map.
 
 Preview: theme-torchlight-archive.png
+
+## Anti-slop audit (avoid-ai-design skill, 30 Oct 2026)
+Plan reviewed against SD1–SD8 + C7:
+- Dark ground is earned (C7 ok): the product's idea is torchlight finding dark spots; palette is navy + 4 job-bound colours, not one neon on black (not SD2).
+- Seafoam has a job (= confirmed status), never decorative (SD8 ok). Amber = dark spots/primary action only.
+- Fonts not Inter/Geist/Roboto. No serif-italic garnish.
+- Headline carries no single accented word (SD5).
+Build bans: no ALL-CAPS eyebrows or mono labels (mono only for quotes' source URLs if needed), no `·` metadata strings, no → glued on CTAs, no 01/02/03 except the genuinely ranked Verify-next list, no three-icon-card feature row, no fake macOS window, no rounded-2xl+shadow on everything, no fade-up on every section (one signature motion: beam reveal), shadcn only if re-themed to these tokens. Every interactive element has hover + :focus-visible; reduced-motion respected.
+Gate before every deploy: `node /workspace/work/skills/avoid-ai-design/scripts/detect.mjs src` → no P0/P1 unless marked `avoid-ai-design-ignore`, plus desktop/mobile screenshot silhouette test.
