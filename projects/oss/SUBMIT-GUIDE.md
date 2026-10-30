@@ -18,8 +18,7 @@ Har PR khud kholo. Pehle diff/changes.md dekh lo, phir title + body paste karo (
 - Title/body: `orynivo-181/pr.md`
 
 ## 4. Remember-Me #57 (maintainer: "go ahead" ✅, fork NAHI hai)
-- Pehle fork karo: https://github.com/sarmadiq9090-coder/Remember-Me/fork
-- Phir Hark-Two ko bolo, branch `hindi-review-57` push hogi
+- Fork done, branch pushed (8a95f9d)
 - Review: `remember-me-57/changes.md` (26 Hindi lines), native speaker line sahi hai na check karo
 - PR: https://github.com/abhi478jeetur-rgb/Remember-Me/pull/new/hindi-review-57
 - Title/body: `remember-me-57/pr.md`
