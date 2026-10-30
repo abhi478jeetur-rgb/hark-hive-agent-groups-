@@ -1,0 +1,76 @@
+From 073d185c794d98056149cbe1891b6c672562bd1d Mon Sep 17 00:00:00 2001
+From: abhi478jeetur-rgb <253671796+abhi478jeetur-rgb@users.noreply.github.com>
+Date: Fri, 30 Oct 2026 02:13:45 +0000
+Subject: [PATCH] fix(client): the home page names the browser among receivers
+ that confirm delivery
+
+Closes #816
+---
+ .../landing/CapabilitiesSection.tsx           |  2 +-
+ client/lib/capabilitiesText.test.ts           | 22 +++++++++++++++++++
+ docs/changelog.mdx                            |  3 ++-
+ 3 files changed, 25 insertions(+), 2 deletions(-)
+ create mode 100644 client/lib/capabilitiesText.test.ts
+
+diff --git a/client/components/landing/CapabilitiesSection.tsx b/client/components/landing/CapabilitiesSection.tsx
+index f2443d3..3038656 100644
+--- a/client/components/landing/CapabilitiesSection.tsx
++++ b/client/components/landing/CapabilitiesSection.tsx
+@@ -44,7 +44,7 @@ const items: {
+     {
+         icon: FileCheck,
+         title: 'Checked on arrival',
+-        body: 'Each file is checked against its announced size and, when the sender sends one, a fingerprint of its contents (SHA-256). A mismatched file is discarded. CLI and Floe Desktop receivers confirm delivery.',
++        body: 'Each file is checked against its announced size and, when the sender sends one, a fingerprint of its contents (SHA-256). A mismatched file is discarded. Browser, CLI, and Floe Desktop receivers confirm delivery.',
+         href: 'https://www.floe.one/docs/how-it-works/file-checks',
+     },
+     {
+diff --git a/client/lib/capabilitiesText.test.ts b/client/lib/capabilitiesText.test.ts
+new file mode 100644
+index 0000000..521dd84
+--- /dev/null
++++ b/client/lib/capabilitiesText.test.ts
+@@ -0,0 +1,22 @@
++import { readFileSync } from 'node:fs';
++import { fileURLToPath } from 'node:url';
++import { describe, expect, it } from 'vitest';
++import { RECEIVER_CONFIRMS } from './transfer/protocol';
++
++const read = (rel: string) => readFileSync(fileURLToPath(new URL(rel, import.meta.url)), 'utf8');
++// One line, so a wrapped sentence still matches.
++const tiles = read('../components/landing/CapabilitiesSection.tsx').replace(/\s+/g, ' ');
++
++function lastSentence(title: string): string | undefined {
++    const tile = tiles.match(new RegExp(`title: '${title}', body: '([^']*)'`));
++    return tile?.[1].split('. ').at(-1);
++}
++
++describe('the home page: Checked on arrival', () => {
++    // A browser receiver confirms delivery while RECEIVER_CONFIRMS is on.
++    // Turn it off and this sentence changes too.
++    it('names every receiver that confirms delivery', () => {
++        expect(RECEIVER_CONFIRMS).toBe(true);
++        expect(lastSentence('Checked on arrival')).toBe('Browser, CLI, and Floe Desktop receivers confirm delivery.');
++    });
++});
+diff --git a/docs/changelog.mdx b/docs/changelog.mdx
+index 2745a78..8ae5ec1 100644
+--- a/docs/changelog.mdx
++++ b/docs/changelog.mdx
+@@ -43,11 +43,12 @@ Floe ships on two version lines. `vX.Y.Z` releases the `floe` CLI and the contai
+ 
+ Each entry lists the parts it changed. Filter on the right to see only the ones you use.
+ 
+-<Update label="Unreleased" tags={["Desktop"]}>
++<Update label="Unreleased" tags={["Desktop", "Web"]}>
+   **History now names the empty files of a receive by code**
+ 
+   - In History, a receive by code now lists its empty files by name, where one empty file received alone used to read "0 files". Contributed by [@Detoy](https://github.com/Detoy).
+   - In Settings, **Hide my IP address** and **Contribute to global stats** now switch back when Floe cannot save the change, as the other switches already do. They used to keep showing the new setting while a request link went on with the saved one.
++  - Web app: on the home page, the **Checked on arrival** tile now says browser, CLI and Floe Desktop receivers confirm delivery. It used to leave out the browser, which has confirmed delivery since v1.11.2.
+ </Update>
+ 
+ <Update label="desktop-v1.0.4" description="2026-10-28" tags={["Desktop"]}>
+-- 
+2.47.3
+

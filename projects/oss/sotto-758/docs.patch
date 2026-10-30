@@ -1,0 +1,294 @@
+From e78c03bec0e77ed2523f9bdc4670fd83611a158b Mon Sep 17 00:00:00 2001
+From: abhi478jeetur-rgb <253671796+abhi478jeetur-rgb@users.noreply.github.com>
+Date: Fri, 30 Oct 2026 02:09:34 +0000
+Subject: [PATCH] docs: explain file-backed secrets and the limits of text-only
+ commands
+
+Closes #758
+
+Signed-off-by: abhi478jeetur-rgb <253671796+abhi478jeetur-rgb@users.noreply.github.com>
+---
+ README.de.md    | 37 +++++++++++++++++++++++++++++++++++++
+ README.es.md    | 37 +++++++++++++++++++++++++++++++++++++
+ README.fr.md    | 38 ++++++++++++++++++++++++++++++++++++++
+ README.md       | 35 +++++++++++++++++++++++++++++++++++
+ README.pt-BR.md | 37 +++++++++++++++++++++++++++++++++++++
+ 5 files changed, 184 insertions(+)
+
+diff --git a/README.de.md b/README.de.md
+index bc772d5..fcf38a6 100644
+--- a/README.de.md
++++ b/README.de.md
+@@ -206,6 +206,7 @@ Server weiter. In jedem Fall speichert der Server nur Chiffrat: Der Web-Tresor u
+ demselben Server entschlüsselt in deinem Browser, mit Schlüsseln, die deine Geräte nie verlassen.
+ 
+ Zum interaktiven Durchsuchen der Secrets siehe die [Dashboard-Anleitung](#interaktives-dashboard).
++Um eine ganze Datei als ein Secret zu speichern, siehe [Dateibasierte Secrets](#dateibasierte-secrets).
+ 
+ ## Agent-Workflows
+ 
+@@ -293,6 +294,42 @@ Um einen früheren Wert zurückzuholen, siehe [Eine frühere Secret-Version wied
+ Dieser Verlauf stammt vom Server und hilft daher nur bei Werten, die Sie bereits hochgeladen hatten. Führen Sie
+ `sotto import --help` aus, um die Regeln für Anführungszeichen und literale Werte nachzulesen, statt sie hier zu wiederholen.
+ 
++### Dateibasierte Secrets
++
++Ein Secret-Wert besteht aus Bytes, nicht nur aus Text. Du kannst also eine ganze Datei (ein
++Zertifikat, eine Schlüsseldatei oder eine kleine Binärdatei) als ein Secret speichern. Du brauchst
++ein initialisiertes Projekt und einen entsperrten lokalen Tresor. Dieses POSIX-Shell-Beispiel nutzt
++eine synthetische Datei und prüft den Hin- und Rückweg Byte für Byte, ohne den Wert auszugeben:
++
++```sh
++printf 'synthetic-demo-bytes\001\377\n' > example-input.bin   # a made-up file, not a real secret
++sotto set EXAMPLE_FILE --stdin < example-input.bin
++sotto get EXAMPLE_FILE > example-output.bin                   # redirected, so nothing is printed
++cmp example-input.bin example-output.bin && echo "round-trip OK"
++rm example-input.bin example-output.bin
++```
++
++`--stdin` liest bis zum Dateiende und behält jedes Byte: Nichts wird abgeschnitten, auch kein
++abschließender Zeilenumbruch. Die gesamte Eingabe wird ein einziger Secret-Wert; sie wird nicht als
++dotenv gelesen, nutze also [`sotto import`](#eine-dotenv-datei-importieren) für eine Datei mit
++Zuweisungen. Wenn die Ausgabe von `sotto get` umgeleitet oder per Pipe weitergegeben wird, schreibt
++es genau die gespeicherten Bytes und hängt keinen Zeilenumbruch an. Die Ausgabedatei enthält
++Klartext, also lösche sie danach und committe sie nie, auch nicht als Test-Fixture.
++
++Nur `set --stdin` und umgeleitetes `get` verarbeiten beliebige Bytes. Befehle, die Secrets als Text
++behandeln, brauchen gültiges UTF-8:
++
++- `sotto run` und Klartext-`sotto export` lesen in jedem `--format` alle Einträge der gewählten
++  Umgebung. Ein einziger Wert, der kein gültiges UTF-8 ist, bricht den ganzen Befehl mit einem
++  Fehler ab; der Wert wird weder übersprungen noch in Base64 umgewandelt.
++- `sotto get NAME --copy` braucht ebenfalls gültiges UTF-8. Nutze umgeleitetes `get`, um beliebige
++  Bytes abzurufen.
++
++Lege Binärwerte in eine eigene Umgebung, wenn du diese Umgebung auch mit `sotto run` einspeist.
++Dieser Abruf als Klartextdatei ist kein Backup: Für eine verschlüsselte Kopie deines Kontos nutze
++den verschlüsselten Export auf der Sotto-Cloud-Kontoseite unter `/cloud`, und für den Verlauf siehe
++[Eine frühere Secret-Version wiederherstellen](#eine-frühere-secret-version-wiederherstellen).
++
+ ### Ein Secret entfernen
+ 
+ Um ein veraltetes Secret aus `staging` zu entfernen, ohne die Standardumgebung zu ändern:
+diff --git a/README.es.md b/README.es.md
+index d073811..281ef27 100644
+--- a/README.es.md
++++ b/README.es.md
+@@ -207,6 +207,7 @@ servidor que elegiste. En cualquier caso el servidor solo almacena texto cifrado
+ `/app` del mismo servidor descifra en tu navegador, con claves que nunca salen de tus dispositivos.
+ 
+ Para explorar los secretos de forma interactiva, consulta la [guía del panel](#panel-interactivo).
++Para guardar un archivo completo como un solo secreto, consulta [Secretos a partir de archivos](#secretos-a-partir-de-archivos).
+ 
+ ## Flujos de trabajo con agentes
+ 
+@@ -293,6 +294,42 @@ Para recuperar un valor anterior, consulta [Restaurar una versión anterior de u
+ Ese historial procede del servidor, así que solo sirve para valores que ya habías subido. Ejecuta
+ `sotto import --help` para ver las reglas de comillas y de valores literales en lugar de repetirlas aquí.
+ 
++### Secretos a partir de archivos
++
++El valor de un secreto son bytes, no solo texto, así que puedes guardar un archivo completo (un
++certificado, un archivo de clave o un binario pequeño) como un solo secreto. Necesitas un proyecto
++inicializado y un almacén local desbloqueado. Este ejemplo para shell POSIX usa un archivo sintético
++y comprueba la ida y vuelta byte a byte sin imprimir el valor:
++
++```sh
++printf 'synthetic-demo-bytes\001\377\n' > example-input.bin   # a made-up file, not a real secret
++sotto set EXAMPLE_FILE --stdin < example-input.bin
++sotto get EXAMPLE_FILE > example-output.bin                   # redirected, so nothing is printed
++cmp example-input.bin example-output.bin && echo "round-trip OK"
++rm example-input.bin example-output.bin
++```
++
++`--stdin` lee hasta el final del archivo y conserva cada byte: no se recorta nada, ni siquiera un
++salto de línea final. Toda la entrada se convierte en un único valor; no se interpreta como dotenv,
++así que usa [`sotto import`](#importar-un-archivo-dotenv) para un archivo de asignaciones. Cuando la
++salida de `sotto get` se redirige o se envía por una tubería, escribe exactamente los bytes guardados
++y no añade un salto de línea. El archivo de salida contiene texto plano, así que bórralo al terminar
++y nunca lo confirmes en el repositorio, ni siquiera como fixture de prueba.
++
++Solo `set --stdin` y `get` redirigido manejan bytes arbitrarios. Los comandos que tratan los secretos
++como texto necesitan UTF-8 válido:
++
++- `sotto run` y `sotto export` en texto plano, en cualquier `--format`, leen todas las entradas del
++  entorno seleccionado. Un solo valor que no sea UTF-8 válido detiene todo el comando con un error;
++  el valor no se omite ni se convierte a Base64.
++- `sotto get NAME --copy` también necesita UTF-8 válido. Usa `get` redirigido para recuperar bytes
++  arbitrarios.
++
++Guarda los valores binarios en un entorno aparte si también inyectas ese entorno con `sotto run`.
++Esta recuperación a un archivo de texto plano no es una copia de seguridad: para una copia cifrada de
++tu cuenta, usa la exportación cifrada de la página de cuenta de Sotto Cloud en `/cloud`, y para el
++historial consulta [Restaurar una versión anterior de un secreto](#restaurar-una-versión-anterior-de-un-secreto).
++
+ ### Eliminar un secreto
+ 
+ Para eliminar un secreto obsoleto de `staging` sin cambiar el entorno predeterminado:
+diff --git a/README.fr.md b/README.fr.md
+index 36741f7..0573a39 100644
+--- a/README.fr.md
++++ b/README.fr.md
+@@ -210,6 +210,7 @@ le serveur choisi. Dans tous les cas, le serveur ne stocke que du texte chiffré
+ appareils.
+ 
+ Pour parcourir les secrets de façon interactive, consultez le [guide du tableau de bord](#tableau-de-bord-interactif).
++Pour stocker un fichier entier comme un seul secret, consultez [Secrets issus de fichiers](#secrets-issus-de-fichiers).
+ 
+ ## Flux de travail avec des agents
+ 
+@@ -298,6 +299,43 @@ Pour retrouver une valeur antérieure, voir [Restaurer une ancienne version d'un
+ Cet historique provient du serveur : il ne sert donc que pour des valeurs déjà envoyées. Exécutez
+ `sotto import --help` pour les règles de guillemets et de valeurs littérales plutôt que de les répéter ici.
+ 
++### Secrets issus de fichiers
++
++La valeur d'un secret est une suite d'octets, pas seulement du texte : vous pouvez donc garder un
++fichier entier (un certificat, un fichier de clé ou un petit binaire) comme un seul secret. Il vous
++faut un projet initialisé et un coffre local déverrouillé. Cet exemple pour shell POSIX utilise un
++fichier synthétique et vérifie l'aller-retour octet par octet sans afficher la valeur :
++
++```sh
++printf 'synthetic-demo-bytes\001\377\n' > example-input.bin   # a made-up file, not a real secret
++sotto set EXAMPLE_FILE --stdin < example-input.bin
++sotto get EXAMPLE_FILE > example-output.bin                   # redirected, so nothing is printed
++cmp example-input.bin example-output.bin && echo "round-trip OK"
++rm example-input.bin example-output.bin
++```
++
++`--stdin` lit jusqu'à la fin du fichier et garde chaque octet : rien n'est retiré, pas même un saut
++de ligne final. Toute l'entrée devient une seule valeur ; elle n'est pas lue comme un dotenv, donc
++utilisez [`sotto import`](#importer-un-fichier-dotenv) pour un fichier d'affectations. Quand la
++sortie de `sotto get` est redirigée ou passée dans un tube, il écrit exactement les octets stockés et
++n'ajoute pas de saut de ligne. Le fichier de sortie contient du texte en clair : supprimez-le ensuite
++et ne le committez jamais, même comme fixture de test.
++
++Seuls `set --stdin` et `get` redirigé gèrent des octets arbitraires. Les commandes qui traitent les
++secrets comme du texte exigent de l'UTF-8 valide :
++
++- `sotto run` et `sotto export` en clair, quel que soit `--format`, lisent toutes les entrées de
++  l'environnement choisi. Une seule valeur qui n'est pas de l'UTF-8 valide arrête toute la commande
++  avec une erreur ; la valeur n'est ni ignorée ni convertie en Base64.
++- `sotto get NAME --copy` exige aussi de l'UTF-8 valide. Utilisez `get` redirigé pour récupérer des
++  octets arbitraires.
++
++Placez les valeurs binaires dans un environnement à part si vous injectez aussi cet environnement
++avec `sotto run`. Cette récupération dans un fichier en clair n'est pas une sauvegarde : pour une
++copie chiffrée de votre compte, utilisez l'export chiffré de la page de compte Sotto Cloud sur
++`/cloud`, et pour l'historique consultez
++[Restaurer une ancienne version d'un secret](#restaurer-une-ancienne-version-dun-secret).
++
+ ### Supprimer un secret
+ 
+ Pour supprimer un secret obsolète de `staging` sans changer l'environnement par défaut :
+diff --git a/README.md b/README.md
+index 860f333..256ad0f 100644
+--- a/README.md
++++ b/README.md
+@@ -203,6 +203,7 @@ Either way the server only ever stores ciphertext - the web vault at `/app` on t
+ decrypts in your browser, with keys that never leave your devices.
+ 
+ To browse secrets interactively, see the [dashboard guide](#interactive-dashboard).
++To store a whole file as one secret, see [File-backed secrets](#file-backed-secrets).
+ 
+ ## Agent workflows
+ 
+@@ -290,6 +291,40 @@ To get an earlier value back, see [Restore an earlier secret version](#restore-a
+ That history comes from the server, so it only helps for values you had already pushed. Run
+ `sotto import --help` for the quoting and literal-value rules instead of repeating them here.
+ 
++### File-backed secrets
++
++A secret value is bytes, not only text, so you can keep a whole file (a certificate, a key file or
++a small binary) as one secret. You need an initialised project and an unlocked local vault. This
++POSIX-shell example uses a synthetic file and checks the round-trip byte for byte without printing
++the value:
++
++```sh
++printf 'synthetic-demo-bytes\001\377\n' > example-input.bin   # a made-up file, not a real secret
++sotto set EXAMPLE_FILE --stdin < example-input.bin
++sotto get EXAMPLE_FILE > example-output.bin                   # redirected, so nothing is printed
++cmp example-input.bin example-output.bin && echo "round-trip OK"
++rm example-input.bin example-output.bin
++```
++
++`--stdin` reads until end of file and keeps every byte: nothing is trimmed, including a trailing
++newline. The whole input becomes one secret value; it is not parsed as dotenv, so use
++[`sotto import`](#import-a-dotenv-file) for a file of assignments. When the output of `sotto get` is
++redirected or piped, it writes the stored bytes exactly and does not add a newline. The output file
++holds plaintext, so delete it when you are done and never commit it, even as a test fixture.
++
++Only `set --stdin` and redirected `get` handle arbitrary bytes. Commands that treat secrets as text
++need valid UTF-8:
++
++- `sotto run` and plaintext `sotto export`, in every `--format`, read every entry in the selected
++  environment. One value that is not valid UTF-8 stops the whole command with an error; the value is
++  not skipped and is not converted to Base64.
++- `sotto get NAME --copy` also needs valid UTF-8. Use redirected `get` to retrieve arbitrary bytes.
++
++Keep binary values in a separate environment if you also inject that environment with `sotto run`.
++This plaintext file retrieval is not a backup: for an encrypted copy of your account, use the
++encrypted export on the Sotto Cloud account page at `/cloud`, and see
++[Restore an earlier secret version](#restore-an-earlier-secret-version) for history.
++
+ ### Remove a secret
+ 
+ To remove an obsolete secret from `staging` without changing your default environment:
+diff --git a/README.pt-BR.md b/README.pt-BR.md
+index ada3f21..6484a09 100644
+--- a/README.pt-BR.md
++++ b/README.pt-BR.md
+@@ -206,6 +206,7 @@ servidor escolhido. De todo modo, o servidor só armazena texto cifrado: o cofre
+ mesmo servidor descriptografa no seu navegador, com chaves que nunca saem dos seus dispositivos.
+ 
+ Para explorar os segredos interativamente, consulte o [guia do painel](#painel-interativo).
++Para guardar um arquivo inteiro como um único segredo, consulte [Segredos a partir de arquivos](#segredos-a-partir-de-arquivos).
+ 
+ ## Fluxos de trabalho com agentes
+ 
+@@ -292,6 +293,42 @@ Para recuperar um valor anterior, veja [Restaurar uma versão anterior de um seg
+ Esse histórico vem do servidor, então só ajuda com valores que você já havia enviado. Execute
+ `sotto import --help` para ver as regras de aspas e de valores literais em vez de repeti-las aqui.
+ 
++### Segredos a partir de arquivos
++
++O valor de um segredo são bytes, não apenas texto, então você pode guardar um arquivo inteiro (um
++certificado, um arquivo de chave ou um binário pequeno) como um único segredo. Você precisa de um
++projeto inicializado e de um cofre local desbloqueado. Este exemplo para shell POSIX usa um arquivo
++sintético e confere a ida e volta byte a byte sem imprimir o valor:
++
++```sh
++printf 'synthetic-demo-bytes\001\377\n' > example-input.bin   # a made-up file, not a real secret
++sotto set EXAMPLE_FILE --stdin < example-input.bin
++sotto get EXAMPLE_FILE > example-output.bin                   # redirected, so nothing is printed
++cmp example-input.bin example-output.bin && echo "round-trip OK"
++rm example-input.bin example-output.bin
++```
++
++`--stdin` lê até o fim do arquivo e mantém cada byte: nada é cortado, nem mesmo uma quebra de linha
++final. Toda a entrada vira um único valor; ela não é lida como dotenv, então use
++[`sotto import`](#importar-um-arquivo-dotenv) para um arquivo de atribuições. Quando a saída de
++`sotto get` é redirecionada ou enviada por um pipe, ele grava exatamente os bytes armazenados e não
++adiciona quebra de linha. O arquivo de saída contém texto puro, então apague-o ao terminar e nunca o
++envie ao repositório, nem como fixture de teste.
++
++Só `set --stdin` e `get` redirecionado lidam com bytes arbitrários. Os comandos que tratam segredos
++como texto precisam de UTF-8 válido:
++
++- `sotto run` e `sotto export` em texto puro, em qualquer `--format`, leem todas as entradas do
++  ambiente selecionado. Um único valor que não seja UTF-8 válido interrompe o comando inteiro com um
++  erro; o valor não é ignorado nem convertido para Base64.
++- `sotto get NAME --copy` também precisa de UTF-8 válido. Use `get` redirecionado para recuperar
++  bytes arbitrários.
++
++Guarde valores binários em um ambiente separado se você também injeta esse ambiente com `sotto run`.
++Essa recuperação para um arquivo em texto puro não é um backup: para uma cópia criptografada da sua
++conta, use a exportação criptografada da página de conta do Sotto Cloud em `/cloud`, e para o
++histórico consulte [Restaurar uma versão anterior de um segredo](#restaurar-uma-versão-anterior-de-um-segredo).
++
+ ### Remover um segredo
+ 
+ Para remover um segredo obsoleto de `staging` sem alterar o ambiente padrão:
+-- 
+2.47.3
+
