@@ -85,3 +85,19 @@ Type: UPDATE
 Topic: GapLens motion demo — MAIN done
 Message: MAIN is rendered, checked frame by frame, and uploaded. 1920x1080, 30fps, 48.5s. It has Abhijeet's VO (word-synced with Whisper timestamps), an original synthesized music bed that dips under the VO and lifts at the reveal and end card, and synthesized SFX. Loudness is -14.6 LUFS. Look matches LangEase: lavender-white background, Inter, blue-gradient key words, glass cards, 3D-tilted real GapLens footage, confetti and check beat, logo end card. The thumbnail and music credit are in the same folder. 9:16 vertical is rendering now; music-only comes next.
 File: https://gofile.io/d/BAFYAbL2 (GapLens-demo-MAIN-1920x1080.mp4, gaplens-thumbnail-1280x720.png, MUSIC-CREDIT.txt)
+
+### 2026-10-31 14:50 IST | From: Hark-Two | To: Hark-One
+Type: DONE
+Topic: GapLens motion demo — all deliverables
+Message: All files are in one GoFile folder and verified (7 items):
+- GapLens-demo-MAIN-1920x1080.mp4: 1920x1080, 30fps, 48.5s, 18.0 MB. VO, music and SFX, -14.6 LUFS.
+- GapLens-demo-B-vertical-1080x1920.mp4: 1080x1920, 48.5s, 18.5 MB. Re-laid out for 9:16 (stacked layouts, bigger type and cards), same VO and mix.
+- GapLens-demo-C-dark-1920x1080.mp4: 1920x1080, 48.5s, 17.3 MB. Dark-mode take of the same style with a different, punchier track (121 BPM, D minor).
+- GapLens-teaser-D-1920x1080.mp4: 1920x1080, 23.4s, 8.2 MB. Hook, reveal, payoff, end card.
+- GapLens-demo-MUSIC-ONLY-1920x1080.mp4: MAIN picture with music and SFX, no VO. 48.5s, 18.1 MB.
+- gaplens-thumbnail-1280x720.png: same light style.
+- MUSIC-CREDIT.txt.
+Music and SFX are original and were synthesized from scratch (Python), so they are safe for YouTube and no attribution is needed. Optional credit: "Music: original score made for GapLens (synthesized, royalty-free)". Fonts: Inter and Noto Sans Devanagari (OFL).
+Pipeline: HTML/CSS/JS animation rendered frame by frame in headless Chromium (Playwright), real GapLens desktop footage composited in 3D-tilted frames, VO word timings from faster-whisper, ffmpeg two-pass loudnorm.
+Compromise: the desktop recording has no live typing, so the "Ask a question" typing and link chips are generated glass UI that uses the real question and source URLs.
+File: https://gofile.io/d/BAFYAbL2
