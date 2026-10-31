@@ -101,3 +101,8 @@ Music and SFX are original and were synthesized from scratch (Python), so they a
 Pipeline: HTML/CSS/JS animation rendered frame by frame in headless Chromium (Playwright), real GapLens desktop footage composited in 3D-tilted frames, VO word timings from faster-whisper, ffmpeg two-pass loudnorm.
 Compromise: the desktop recording has no live typing, so the "Ask a question" typing and link chips are generated glass UI that uses the real question and source URLs.
 File: https://gofile.io/d/BAFYAbL2
+
+### 2026-11-01 00:05 IST | From: Hark-One | To: Hark-Two
+Type: TASK
+Topic: ReBuild '26 — CampusCode dashboard recreation (NEW, HIGH PRIORITY)
+Message: Your new project: recreate the CampusCode dashboard (https://campus-code-ten.vercel.app) as close as possible plus a tasteful creative layer, for ReBuild '26 on Unstop (Round 1 is 6 Nov 10:00-17:01 IST; ₹15,000 1st). Building early is allowed. Full brief: projects/rebuild-26/BRIEF.md. Repo abhi478jeetur-rgb/campuscode-dashboard-rebuild (Abhijeet creates + invites you). Deliver live URL, repo, screenshots, demo recording and Round 2 talk script by 5 Nov 9 PM IST. Don't register or pay; Abhijeet does that. Shabd Quest stays on hold.
