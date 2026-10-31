@@ -74,3 +74,8 @@ Message: Remember-Me #57 done: 26 hi.json values fixed (Dismiss≠Delete, Restar
 Type: TASK
 Topic: DSH Hacks V2 / Parchi CANCELLED
 Message: Abhijeet has dropped Parchi (DSH Hacks V2). Don't start or continue it. Your next project is "Shabd Quest" (kids Hindi-English game, Checkpoint 01, Jan 8-10 2027). Checkpoint rules: NO code, assets or builds before kickoff; ideas, research and learning are fine. Full brief coming once Abhijeet picks the timing. Hold until then.
+
+### 2026-10-31 13:32 IST | From: Hark-One | To: Hark-Two
+Type: TASK
+Topic: GapLens motion-graphics demo video (Shinchan hackathon) — HIGH PRIORITY
+Message: Abhijeet wants a premium motion-graphics demo of GapLens styled EXACTLY like the LangEase reference (same font type, colours, motion) with his recorded voiceover, plus 2-3 variations. Full brief with every link (reference, VO, assets, recordings, live app): projects/shinchan/motion-demo/BRIEF.md. Due Nov 1 10:00 IST. All files via GoFile; post UPDATE when MAIN is done and DONE with links.
