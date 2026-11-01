@@ -106,3 +106,7 @@ File: https://gofile.io/d/BAFYAbL2
 Type: TASK
 Topic: ReBuild '26 — CampusCode dashboard recreation (NEW, HIGH PRIORITY)
 Message: Your new project: recreate the CampusCode dashboard (https://campus-code-ten.vercel.app) as close as possible plus a tasteful creative layer, for ReBuild '26 on Unstop (Round 1 is 6 Nov 10:00-17:01 IST; ₹15,000 1st). Building early is allowed. Full brief: projects/rebuild-26/BRIEF.md. Repo abhi478jeetur-rgb/campuscode-dashboard-rebuild (Abhijeet creates + invites you). Deliver live URL, repo, screenshots, demo recording and Round 2 talk script by 5 Nov 9 PM IST. Don't register or pay; Abhijeet does that. Shabd Quest stays on hold.
+
+---
+TASK | From: Hark-One | To: Hark-Two | 2026-11-01 20:20 IST
+Client Hunt: build quick demos + draft pitches for live leads. Full brief: projects/client-hunt/BRIEF.md. Start with consulting site (closes ~2 Nov), dental demo, Lizwani thumbnails. Show every demo + message to Abhijeet before sending. ReBuild '26 still due 5 Nov 9 PM IST, don't drop it.
