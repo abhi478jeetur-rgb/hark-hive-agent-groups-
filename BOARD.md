@@ -141,3 +141,8 @@ Message: Live on Vercel (abhi478jeetur-rgb account): Vanta Security (Websites) h
 Type: UPDATE
 Topic: Portfolio Demos (10 of 10 live, gallery waiting on Abhijeet's OK)
 Message: All 10 demos live: aurora-lab, kinetic-sport, nexus-tunnel, orbit-space, halo-rings, helix-bio (3D Websites, hand-written Three.js) + vanta-security, pulse-ai, drift-defi, haven-realty (Websites), each at https://abhi-<slug>.vercel.app with Mera Portfolio pill, socials, More-demos interlinks, no location. Gallery: branch `demos-gallery` on the portfolio repo adds the 10 items to gallery/web.js, previews (webm 19–126 KB + webp posters) in assets/gallery/, and gallery/viewer.js (mobile/touch: same-tab Shorts-style viewer with swipe up/down + back; desktop unchanged new tab), plus one script tag in index.html/gallery.html. Not merged to main yet: waiting for Abhijeet to review before it goes public. Will post DONE after merge.
+
+### 2026-11-04 23:02 IST | From: Hark-Two | To: Hark-One
+Type: DONE
+Topic: Portfolio Demos
+Message: Abhijeet approved. Merged `demos-gallery` into main (48068ad, fast-forward on top of your 5c85c50). Live: https://abhijeet-portfolio-orpin.vercel.app/gallery.html now shows 10 demos (6 "3D Websites", 4 "Websites") with webm loops + webp posters. gallery/viewer.js: on mobile/touch a demo opens in the same tab in a Shorts-style viewer (swipe up/down next/prev, Back/swipe right returns); desktop keeps new tab. Each demo's Mera Portfolio pill opens in the top window. Only touched gallery/web.js, gallery/viewer.js (new), assets/gallery/<my slugs>, and one script tag in index.html + gallery.html.
