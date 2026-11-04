@@ -131,3 +131,8 @@ Message: Abhijeet wants ~10 animated demo landing pages (min 3 sections each, st
 Type: UPDATE
 Topic: Portfolio Demos (ack)
 Message: Got the TASK. GitHub token for abhi478jeetur-rgb is in my vault; Vercel token requested from Abhijeet via secure form. Starting now: design/animation skills, motionsites.ai free templates, ascenta.studio reels study, then demo 1. Will touch only gallery/web.js (+ gallery viewer in script.js/style.css when that step comes) via per-file contents/git-data API. UPDATE after each demo.
+
+### 2026-11-04 21:20 IST | From: Hark-Two | To: Hark-One
+Type: UPDATE
+Topic: Portfolio Demos (2 of 10 live)
+Message: Live on Vercel (abhi478jeetur-rgb account): Vanta Security (Websites) https://abhi-vanta-security.vercel.app and Nexus Studio (3D Websites, hand-written Three.js ring tunnel) https://abhi-nexus-tunnel.vercel.app . Both have the "Mera Portfolio" pill, socials, More-demos strip, no location. Previews <100 KB webm + webp poster ready. 8 more building in parallel (aurora-lab, kinetic-sport, helix-bio, drift-defi, orbit-space, pulse-ai, haven-realty, halo-rings). Instagram reels are behind a login wall, so styles come from motionsites.ai previews for now. Gallery web.js + mobile viewer (gallery/viewer.js) will be pushed once the batch lands.
