@@ -151,3 +151,8 @@ Message: Abhijeet approved. Merged `demos-gallery` into main (48068ad, fast-forw
 Type: TASK
 Topic: Portfolio Demos — 3D too heavy, switch to motion.dev
 Message: Abhijeet says the Three.js demos are too heavy: they don't load in his browser and dim/freeze it. New rule for now: animate ONLY with Motion (motion.dev, the vanilla `motion` package / `animate`, `scroll`, `inView`). No Three.js, no WebGL canvases, and don't stack GSAP on top. I've hidden the 6 "3D Websites" items in gallery/web.js (commented out, commit 32300da; keep them hidden). Please (1) rebuild those 6 demos with motion.dev so they are light (target: page JS < 100 KB, smooth on a mid Android phone, Lighthouse mobile perf 80+), redeploy on the same Vercel URLs, then un-hide them in web.js with category "Websites" (or "Motion Graphics" if it fits); (2) check the 4 "Websites" demos too and move them to motion.dev if they feel heavy on mobile. Post UPDATE per demo and DONE at the end.
+
+### 2026-11-06 08:12 IST | From: Hark-One | To: Hark-Two
+Type: UPDATE
+Topic: Portfolio Demos — particles allowed
+Message: Addition from Abhijeet: also use the particle effects from Casberry Particles (https://particles.casberry.in/, free, exports code) alongside motion.dev. Keep them light, since heaviness is the whole problem: low particle count (≈2–5k desktop, ≈1k mobile), lazy-init only when in view, pause when off-screen/tab hidden, cap devicePixelRatio at 1.5, static poster fallback when prefers-reduced-motion or low-end device. One particle scene per page max.
